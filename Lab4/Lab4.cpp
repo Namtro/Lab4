@@ -2,19 +2,98 @@
 //
 
 #include <iostream>
-
-int main()
-{
-    std::cout << "Hello World!\n";
+#include <cstdint>
+using namespace std;
+void printMenu() {
+	cout << "Please Select which operation to perform:" << endl;
+	cout << "\t1. Factorial" << endl;
+	cout << "\t2. Arithmetic Series" << endl;
+	cout << "\t3. Geometric Series" << endl;
+	cout << "\t4. Exit" << endl;
+	cout << "Your Selection: ";
 }
+void factorial() {
+	int n;
+	cout << "Enter a number: ";
+	cin >> n;
+	while (n < 0) {
+		cout << "Nice try, please enter a POSITIVE number...: ";
+		cin >> n;
+	}
+	uint64_t result = 1;
+	for (int i = 2; i <= n; ++i) {
+		result *= i;
+	}
+	cout << n << "! = ";
+	for (int i = 1; i <= n; ++i) {
+		cout << i;
+		if (i < n) cout << " * ";
+	}
+	cout << " = " << result << endl;
+}
+void arithmetic() {
+	int start, difference, numElements;
+	cout << "Arithmetic Series:" << endl;
+	cout << "Enter a number to start at: ";
+	cin >> start;
+	cout << "Enter a number to add each time: ";
+	cin >> difference;
+	cout << "Enter the number of elements in the series: ";
+	cin >> numElements;
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+	int sum = start;
+	cout << start;
+	for (int i = 1; i < numElements; ++i) {
+		start += difference;
+		sum += start;
+		cout << " + " << start;
+	}
+	cout << " = " << sum << endl;
+}
+void geometric() {
+	int start, ratio, numElements;
+	cout << "Geometric Series:" << endl;
+	cout << "Enter a number to start at: ";
+	cin >> start;
+	cout << "Enter a number to multiply by each time: ";
+	cin >> ratio;
+	cout << "Enter the number of elements in the series: ";
+	cin >> numElements;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	int sum = start;
+	cout << start;
+	for (int i = 1; i < numElements; ++i) {
+		start *= ratio;
+		sum += start;
+		cout << " + " << start;
+	}
+	cout << " = " << sum << endl;
+}
+int main() {
+	int choice;
+	char again;
+	do {
+		printMenu();
+		cin >> choice;
+		if (choice > 3 || choice < 1) {
+			if (choice == 4) {
+				cout << "Exiting" << endl;
+			}
+			else {
+				cout << "Please try again." << endl;
+			}
+			return 0;
+		}
+		else if (choice == 1) {
+			factorial();
+		}
+		else if (choice == 2) {
+			arithmetic();
+		}
+		else if (choice == 3) {
+			geometric();
+		}
+		cout << "Go Again? [Y/N] ";
+		cin >> again;
+	} while (again == 'y' || again == 'Y');
+}
